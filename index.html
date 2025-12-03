@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Guia Gerencial: Processos Administrativos em Obras — Silvanio Gois</title>
+  <style>
+    :root{
+      --primary: rgb(39,98,141);
+      --primary-light: rgba(39,98,141,0.06);
+      --secondary: rgb(20, 70, 110);
+      --bg: #f6f8fa;
+      --card: #ffffff;
+      --muted: #5a6a73;
+      --radius: 12px;
+      --max-width: 1100px;
+      --gap: 18px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:#222; line-height:1.5;}
+    .wrap{max-width:var(--max-width);margin:28px auto;padding:18px}
+    /* Header card: foto à esquerda, info à direita - Layout original */
+    header.card{
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:24px;
+      display:flex;
+      gap:24px;
+      align-items:flex-start;
+      box-shadow:0 8px 24px rgba(16,40,60,0.06);
+      border-left:6px solid var(--primary);
+      margin-bottom:28px;
+    }
+    .avatar{
+      flex:0 0 140px;
+      border-radius:10px;
+      overflow:hidden;
+      background:var(--primary-light);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:6px;
+      border:1px solid rgba(39,98,141,0.1);
+    }
+    .avatar img{
+      width:100%;
+      height:auto !important;
+      object-fit:contain !important;
+      object-position:center center !important;
+      display:block;
+      border-radius:6px;
+    }
+    .head{
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+      justify-content:space-between;
+      min-height:140px;
+    }
+    .head-top{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .title{
+      font-size:24px;
+      color:var(--primary);
+      font-weight:700;
+      margin:0;
+      line-height:1.2;
+    }
+    .subtitle{
+      font-size:15px;
+      color:var(--muted);
+      margin:0;
+      max-width:800px;
+    }
+    .by{
+      font-size:14px;
+      color:var(--muted);
+      font-weight:500;
+      margin-top:4px;
+    }
+    .contact{
+      align-self:flex-start;
+      margin-top:auto;
+    }
+    .contact a{
+      display:inline-block;
+      background:linear-gradient(135deg, var(--primary), var(--secondary));
+      color:#fff;
+      padding:10px 20px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:600;
+      font-size:15px;
+      transition:all 0.3s ease;
+      box-shadow:0 4px 12px rgba(39,98,141,0.2);
+    }
+    .contact a:hover{
+      transform:translateY(-2px);
+      box-shadow:0 6px 16px rgba(39,98,141,0.3);
+    }
+    /* Main content */
+    main{
+      margin-top:24px;
+      display:grid;
+      grid-template-columns:1fr;
+      gap:var(--gap);
+    }
+    section.card{
+      background:var(--card);
+      padding:22px;
+      border-radius:10px;
+      box-shadow:0 6px 18px rgba(16,40,60,0.04);
+      border:1px solid rgba(0,0,0,0.05);
+      transition:all 0.3s ease;
+    }
+    /* Hover sutil — adicionado/ajustado (mantém responsividade e conteúdo) */
+    section.card:hover{
+      box-shadow:0 12px 30px rgba(16,40,60,0.08);
+      transform:translateY(-6px);
+    }
+    section.card h3{
+      margin:0 0 12px 0;
+      color:var(--primary);
+      font-size:18px;
+      font-weight:700;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    section.card h3::before{
+      content:"";
+      display:inline-block;
+      width:6px;
+      height:18px;
+      background:var(--primary);
+      border-radius:2px;
+    }
+    .muted{
+      color:var(--muted);
+      margin-bottom:16px;
+      line-height:1.6;
+    }
+    ul{
+      margin:12px 0 0 20px;
+      list-style-type:none;
+    }
+    li{
+      margin-bottom:10px;
+      padding-left:10px;
+      position:relative;
+      line-height:1.6;
+    }
+    li::before{
+      content:"•";
+      color:var(--primary);
+      font-weight:bold;
+      display:inline-block;
+      width:1em;
+      margin-left:-1em;
+      position:absolute;
+      left:0;
+    }
+    li strong{
+      color:var(--secondary);
+      font-weight:700;
+    }
+    /* Apenas para itens de lista aninhada (como em EVA) */
+    li ul{
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin-left: 10px;
+    }
+    li ul li::before{
+        content: "—";
+        color: var(--muted);
+        font-weight: normal;
+    }
+    li ul li strong{
+        color: #222;
+        font-weight: 600;
+    }
+    
+    /* Tabela Simples para Matriz de Riscos e Fluxo EVA */
+    .risk-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+        font-size: 14px;
+        table-layout: fixed;
+    }
+    .risk-table th, .risk-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    .risk-table th {
+        background-color: var(--primary-light);
+        color: var(--secondary);
+        font-weight: 700;
+        text-align: center;
+    }
+    .risk-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    .risk-table .high {
+        background-color: rgba(255, 0, 0, 0.1);
+        font-weight: 600;
+    }
+    .risk-table .medium {
+        background-color: rgba(255, 165, 0, 0.1);
+    }
+    
+    /* Novo Estilo para Melhorias (BIM) */
+    .improvement {
+        background-color: #e6f7ff; /* Fundo azul claro */
+        border: 1px dashed var(--primary);
+        padding: 8px 12px;
+        border-radius: 6px;
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+    .improvement strong {
+        color: var(--primary);
+        font-weight: 700;
+        font-size: 14px;
+    }
+
+
+    footer{
+      margin-top:28px;
+      padding:20px;
+      border-radius:10px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background:linear-gradient(180deg,rgba(39,98,141,0.06),transparent);
+      border:1px solid rgba(39,98,141,0.1);
+    }
+    footer .legal{
+      font-size:14px;
+      color:var(--muted);
+    }
+    footer a.site{
+      color:var(--primary);
+      text-decoration:none;
+      font-weight:600;
+      transition:all 0.2s ease;
+      padding:5px 0;
+      border-bottom:1px dashed transparent;
+    }
+    footer a.site:hover{
+      border-bottom:1px dashed var(--primary);
+    }
+    footer .small{
+      font-size:14px;
+      color:var(--muted);
+    }
+    /* Responsive behaviour - Melhorada */
+    @media (max-width:900px){
+      .wrap{
+        padding:15px;
+        margin:20px auto;
+      }
+      header.card{
+        padding:20px;
+        gap:20px;
+      }
+      .avatar{
+        flex:0 0 120px;
+      }
+    }
+    @media (max-width:768px){
+      header.card{
+        flex-direction:row;
+        align-items:flex-start;
+      }
+      .head{
+        min-height:auto;
+        gap:12px;
+      }
+    }
+    @media (max-width:640px){
+      header.card{
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+        padding:20px;
+      }
+      .avatar{
+        width:160px;
+        height:160px;
+        flex:none;
+        margin-bottom:10px;
+      }
+      .head{
+        align-items:center;
+        width:100%;
+        text-align:center;
+      }
+      .head-top{
+        align-items:center;
+      }
+      .contact{
+        align-self:center;
+        width:100%;
+      }
+      .contact a{
+        width:100%;
+        text-align:center;
+        padding:12px 20px;
+      }
+      footer{
+        flex-direction:column;
+        gap:12px;
+        align-items:center;
+        text-align:center;
+      }
+    }
+    @media (max-width:480px){
+      :root{
+        --gap:16px;
+      }
+      .wrap{
+        padding:12px;
+        margin:15px auto;
+      }
+      header.card{
+        padding:18px;
+        margin-bottom:20px;
+      }
+      .title{
+        font-size:22px;
+      }
+      .subtitle{
+        font-size:14px;
+      }
+      .avatar{
+        width:140px;
+        height:140px;
+      }
+      section.card{
+        padding:18px;
+      }
+      section.card h3{
+        font-size:17px;
+      }
+    }
+    @media (max-width:360px){
+      .title{
+        font-size:20px;
+      }
+      .avatar{
+        width:120px;
+        height:120px;
+      }
+      section.card{
+        padding:16px;
+      }
+    }
+    /* Utilities */
+    .small{font-size:14px}
+    .phase-number{
+      display:inline-block;
+      background:var(--primary);
+      color:white;
+      width:26px;
+      height:26px;
+      border-radius:50%;
+      text-align:center;
+      line-height:26px;
+      margin-right:10px;
+      font-size:13px;
+      font-weight:bold;
+    }
+
+    /* ====== Botão Voltar ao Topo (ADICIONADO) ====== */
+    #backToTop{
+      position:fixed;
+      right:28px;
+      bottom:28px;
+      width:50px;
+      height:50px;
+      border-radius:50%;
+      background:linear-gradient(135deg,var(--primary),var(--secondary));
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 10px 30px rgba(16,40,60,0.18);
+      cursor:pointer;
+      z-index:9999;
+      opacity:0;
+      visibility:hidden;
+      transition:all .25s ease;
+      font-size:20px;
+      border: none;
+    }
+    #backToTop.show{
+      opacity:1;
+      visibility:visible;
+      transform:translateY(0);
+    }
+    #backToTop:focus{outline:2px solid rgba(255,255,255,0.2);}
+    /* small responsive tweak */
+    @media (max-width:480px){
+      #backToTop{right:16px;bottom:16px;width:44px;height:44px;font-size:18px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="card">
+      <div class="avatar" aria-hidden="true">
+        <img src="SG_Executivo.png" alt="Foto profissional de Silvanio Gois">
+      </div>
+      <div class="head">
+        <div class="head-top">
+          <h1 class="title">Guia Gerencial: Processos Administrativos em Obras</h1>
+          <p class="subtitle">Framework de gestão administrativa para controle de processos, custos, prazos e recursos na construção civil</p>
+          <div class="by">Silvanio Gois | Gestor Administrativo de Obras</div>
+        </div>
+        <div class="contact">
+           <a href="https://wa.me/5513988301094" target="_blank" rel="noopener">Contato</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="card">
+        <h3><span class="phase-number">1</span> Análise de Viabilidade Administrativa e Riscos</h3>
+        <p class="muted">Processos iniciais de avaliação econômica, análise de riscos e estruturação da base de decisão do empreendimento.</p>
+        <ul>
+          <li><strong>Análise de Mercado e Demanda</strong>: Estudo de viabilidade comercial e análise de concorrência.</li>
+          <li><strong>Projeções Financeiras Preliminares</strong>: Estimativas de custo-benefício, ROI (Retorno sobre Investimento) e payback.</li>
+          <li><strong>Análise de Riscos Administrativos</strong>: Identificação de riscos financeiros, regulatórios e operacionais.</li>
+          <li><strong>Matriz de Riscos Qualitativa</strong>: Avaliação de <strong>Probabilidade x Impacto</strong> e definição de planos de mitigação e contingência.
+            <table class="risk-table">
+              <thead>
+                <tr>
+                  <th>Risco</th>
+                  <th>Severidade (P x I)</th>
+                  <th>Ação de Mitigação</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Atraso na Licença Ambiental</td>
+                  <td class="high">Alto (Ex: 20)</td>
+                  <td>Contratação de consultoria especializada e acompanhamento diário.</td>
+                </tr>
+                <tr>
+                  <td>Aumento súbito de preço de insumos</td>
+                  <td class="medium">Médio (Ex: 12)</td>
+                  <td>Cotação de fornecedores alternativos e compra antecipada de itens críticos.</td>
+                </tr>
+              </tbody>
+            </table>
+          </li>
+          <li><strong>Definição do Escopo Gerencial</strong>: Estabelecimento de objetivos mensuráveis e indicadores de sucesso.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h3><span class="phase-number">2</span> Planejamento Orçamentário e Financeiro</h3>
+        <p class="muted">Processos de elaboração e controle do orçamento, com definição de fontes de recursos e fluxo de caixa.</p>
+        <ul>
+          <li><strong>Estruturação do Orçamento Detalhado</strong>: Desagregação por centros de custo e pacotes de trabalho (BAC - Budget at Completion).</li>
+          <li><strong>Gestão de Fontes de Recursos</strong>: Administração de financiamentos, capital próprio e cronograma de desembolsos.</li>
+          <li><strong>Fluxo de Caixa Projetado</strong>: Projeção de entradas e saídas com análise de necessidade de capital de giro.</li>
+          <li><strong>Controle de Custos Diretos e Indiretos</strong>: Monitoramento de despesas operacionais e administrativas.</li>
+          <li><strong>BDI Administrativo</strong>: Cálculo e aplicação de benefícios, despesas indiretas e margem de lucro.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h3><span class="phase-number">3</span> Planejamento Operacional, Suprimentos e EVA Base</h3>
+        <p class="muted">Organização dos processos operacionais, definição de cronogramas, alocação de recursos e base de medição integrada.</p>
+        <ul>
+          <li><strong>Estrutura Analítica do Projeto (EAP)</strong>: Divisão da obra em pacotes de trabalho gerenciáveis.</li>
+          <li><strong>Cronograma Integrado</strong>: Desenvolvimento de cronogramas físico-financeiros com marcos críticos (Curva S).</li>
+          <li><strong>Homologação e Qualificação de Fornecedores</strong>: Avaliação técnica, legal e financeira para garantir a cadeia de suprimentos.</li>
+          <li><strong>Gestão de Suprimentos</strong>: Planejamento de compras, estoques e logística de materiais.</li>
+          <div class="improvement">
+            <strong>Melhoria - Integração BIM 5D:</strong> Utilização de modelos virtuais 3D/4D/5D para extração automatizada de quantitativos e visualização do cronograma, elevando a precisão do Orçamento (BAC).
+          </div>
+          <li><strong>Critérios de Medição (EVA)</strong>: Definição de como será medido o Valor Agregado (VA) para cada pacote de trabalho.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h3><span class="phase-number">4</span> Processos Administrativos, Legalização e ESG</h3>
+        <p class="muted">Gestão da documentação, licenças, conformidade legal e ambiental (ESG) necessárias para a execução da obra.</p>
+        <ul>
+          <li><strong>Gestão de Licenças e Alvarás</strong>: Controle de prazos e renovação de documentação legal.</li>
+          <li><strong>Processos Trabalhistas</strong>: Registro de funcionários, controle de ponto e documentação do INSS.</li>
+          <li><strong>Conformidade Fiscal e Tributária</strong>: Emissão de notas, controle de impostos e obrigações acessórias.</li>
+          <li><strong>Gestão de Contratos</strong>: Elaboração, acompanhamento e administração de contratos com fornecedores e subcontratados.</li>
+          <li><strong>Gestão e Comunicação de Stakeholders</strong>: Gerenciamento ativo da expectativa e comunicação com partes interessadas (vizinhos, prefeitura, financiadores, clientes).</li>
+          <li><strong>Conformidade Ambiental (ESG)</strong>: Gestão de Resíduos da Construção Civil (PGRCC) e controle de impactos ambientais.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h3><span class="phase-number">5</span> Execução, Controle de Desempenho (EVA) e Mudanças</h3>
+        <p class="muted">Processos de monitoramento, controle de desempenho financeiro e de prazo (EVA) e tomada de decisão durante a fase executiva.</p>
+        <ul>
+          <li><strong>Controle Financeiro em Tempo Real</strong>: Acompanhamento diário de Custos Reais (CR) versus orçamento.</li>
+          <li><strong>Análise de Desempenho Integrada (EVA)</strong>: Cálculo dos indicadores de custo e prazo:
+            <ul>
+              <li><strong>Índice de Desempenho de Custo (IDC ou CPI):</strong> $IDC = VA / CR$</li>
+              <li>Exemplo: Se $VA = R\$ 800 mil$ e $CR = R\$ 1.000 mil$, $IDC = 0,80$. <strong>Ação:</strong> Obra 20% acima do custo orçado, requer correção imediata.</li>
+              <li><strong>Índice de Desempenho de Prazo (IDP ou SPI):</strong> $IDP = VA / CP$</li>
+            </ul>
+          </li>
+          <li><strong>Gestão de Fornecedores e Subcontratados</strong>: Avaliação de desempenho e cumprimento de prazos.</li>
+          <li><strong>Projeções Gerenciais</strong>: Estimativas de Custo Final (EAC) e Prazo Final (ETC) do projeto.</li>
+          <li><strong>Gestão de Mudanças</strong>: Processo formal para solicitação, análise e aprovação de alterações de escopo, custo ou prazo.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h3><span class="phase-number">6</span> Controles de Qualidade, Conformidade e Pós-Obra</h3>
+        <p class="muted">Processos de garantia da qualidade, atendimento a normas, padrões estabelecidos e gestão do período de garantia.</p>
+        <ul>
+          <li><strong>Sistema de Gestão da Qualidade</strong>: Implementação de processos de inspeção, controle tecnológico e ensaios.</li>
+          <li><strong>Gestão de Não Conformidades</strong>: Registro, análise de causa-raiz, tratamento de desvios e ações corretivas.</li>
+          <li><strong>Controle Documental (As-Built)</strong>: Organização, versionamento de documentos e elaboração de projetos finais "como construído".</li>
+          <li><strong>Auditorias Internas</strong>: Processos de verificação da conformidade com procedimentos e normas (NBR).</li>
+          <li><strong>Indicadores de Qualidade</strong>: Medição do Índice de Retrabalho e satisfação do cliente.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h3><span class="phase-number">7</span> Encerramento e Finalização Administrativa</h3>
+        <p class="muted">Processos de conclusão, entrega do empreendimento, fechamento administrativo e transição para o uso.</p>
+        <ul>
+          <li><strong>Gestão da Entrega</strong>: Processo formal de vistoria, aceite (Termo de Recebimento) e entrega das chaves ao cliente/condomínio.</li>
+          <li><strong>Encerramento Financeiro</strong>: Conciliação de contas, pagamentos finais, retenções e fechamento contábil.</li>
+          <li><strong>Documentação Final</strong>: Organização e arquivamento de toda documentação técnica (manuais de uso, As-Built, garantias).</li>
+          <li><strong>Gestão de Garantias</strong>: Controle de prazos e atendimento às garantias contratuais (pós-entrega) e acionamento de fornecedores.</li>
+          <li><strong>Lições Aprendidas</strong>: Sistematização de experiências (positivas e negativas) para melhoria de processos futuros e base de dados.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h3><span class="phase-number">8</span> Ferramentas e Sistemas de Gestão</h3>
+        <p class="muted">Tecnologias e sistemas que apoiam a gestão administrativa na construção civil.</p>
+        <ul>
+          <li><strong>Sistemas ERP para Construção</strong>: Sienge, Mega, TOTVS - integração de processos financeiros e de suprimentos.</li>
+          <li><strong>Ferramentas de Controle de Desempenho (EVA)</strong>: Excel avançado, Power BI para dashboards gerenciais de Custos e Prazos.</li>
+          <li><strong>Software de Gestão de Projetos</strong>: MS Project, Primavera P6 - controle de cronogramas e integração com a EAP.</li>
+          <li><strong>Sistemas de Gestão Documental</strong>: Controle digital de contratos, licenças e documentação técnica.</li>
+          <li><strong>Aplicativos de Gestão de Campo</strong>: Controle de produção, diário de obra, qualidade e segurança em tempo real.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h3><span class="phase-number">9</span> Diagrama de Fluxo Conceitual da EVA (Integração)</h3>
+        <p class="muted">A EVA atua como um elo essencial entre as fases de planejamento e execução, garantindo o controle integrado de Custos e Prazos.</p>
+        <table class="risk-table">
+          <thead>
+            <tr>
+              <th>Fase</th>
+              <th>Processo</th>
+              <th>Entrada de Dados</th>
+              <th>Saída Principal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2 & 3</td>
+              <td><strong>Planejamento da Linha de Base</strong></td>
+              <td>Orçamento (BAC) e Cronograma</td>
+              <td>Curva S (Custo Planejado - CP/PV)</td>
+            </tr>
+            <tr>
+              <td>5 (Execução)</td>
+              <td><strong>Coleta de Dados</strong></td>
+              <td>Medição de Progresso Físico e Pagamentos</td>
+              <td>Valor Agregado (VA/EV) e Custo Real (CR/AC)</td>
+            </tr>
+            <tr>
+              <td>5 (Controle)</td>
+              <td><strong>Análise de Desempenho</strong></td>
+              <td>Cálculo IDC e IDP</td>
+              <td>Projeções (EAC/ETC) e Ações Corretivas</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <footer>
+      <div class="legal">© 2025 Silvanio Gois - Todos os direitos reservados <a class="site" href="https://www.silvaniogois.com.br/" target="_blank" rel="noopener">ir ao Site</a></div>
+      <div class="small muted">Guia Gerencial - Processos Administrativos para Gestão de Obras</div>
+    </footer>
+  </div>
+
+  <!-- BOTÃO VOLTAR AO TOPO (INSERIDO) -->
+  <button id="backToTop" aria-label="Voltar ao topo" title="Voltar ao topo">▲</button>
+
+  <script>
+    // Mostrar/esconder botão de voltar ao topo
+    (function(){
+      const btn = document.getElementById('backToTop');
+      const showAfter = 300; // px
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > showAfter) {
+          btn.classList.add('show');
+        } else {
+          btn.classList.remove('show');
+        }
+      });
+      // Smooth scroll to top
+      btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // opcional: for accessibility, mover foco ao topo
+        document.querySelector('body').focus({preventScroll:true});
+      });
+      // accessibility: permit Enter/Space to trigger
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          btn.click();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
